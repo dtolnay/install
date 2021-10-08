@@ -22,7 +22,7 @@ runs:
       run: curl --output ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}.sig --location --silent --show-error
       shell: bash
     - name: Retrieve public key of signing key
-      run: gpg --output ${{runner.temp}}/signing-key.gpg --dearmor ${{github.action_path}}/signing-key.asc
+      run: gpg --output ${{runner.temp}}/signing-key.gpg --yes --dearmor ${{github.action_path}}/signing-key.asc
       shell: bash
     - name: Verify gpg signature
       run: gpg --no-default-keyring --keyring ${{runner.temp}}/signing-key.gpg --verify ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}}
