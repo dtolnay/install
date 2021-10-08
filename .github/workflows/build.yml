@@ -1,0 +1,34 @@
+name: build
+
+on:
+  workflow_call:
+    inputs:
+      crate:
+        required: true
+        type: string
+      bin:
+        required: false
+        type: string
+
+jobs:
+  build:
+    name: build ${{inputs.crate}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo install --force ${{inputs.crate}} --bin ${{inputs.bin || inputs.crate}}
+      - id: which
+        run: echo "::set-output name=which::$(which ${{inputs.bin || inputs.crate}})"
+      - run: echo "$PRIVATE_KEY" | gpg --import
+        env:
+          PRIVATE_KEY: ${{secrets.PRIVATE_KEY}}
+      - run: gpg --output ${{inputs.bin || inputs.crate}}.sig --detach-sig ${{steps.which.outputs.which}}
+      - run: gpg --output signing-key.gpg --dearmor signing-key.asc
+      - run: gpg --no-default-keyring --keyring ./signing-key.gpg --verify ${{inputs.bin || inputs.crate}}.sig ${{steps.which.outputs.which}}
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{steps.which.outputs.which}}
+            ${{inputs.bin || inputs.crate}}.sig
+          fail_on_unmatched_files: true
