@@ -11,3 +11,4 @@ jobs:
     with:
       crate: cxxbridge-cmd
       bin: cxxbridge
+      private_key: ${{secrets.private_key}}
