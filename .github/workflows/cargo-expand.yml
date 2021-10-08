@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: dtolnay/rust-toolchain@stable
-      - run: cargo install cargo-expand
+      - run: cargo install --force cargo-expand
       - id: which
         run: echo "::set-output name=which::$(which cargo-expand)"
       - run: echo "$PRIVATE_KEY" | gpg --import
