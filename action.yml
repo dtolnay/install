@@ -25,7 +25,7 @@ runs:
       run: gpg --output ${{runner.temp}}/signing-key.gpg --yes --dearmor ${{github.action_path}}/signing-key.asc
       shell: bash
     - name: Verify gpg signature
-      run: gpg --no-default-keyring --keyring ${{runner.temp}}/signing-key.gpg --verify ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}}
+      run: gpg --no-default-keyring --keyring ${{runner.temp}}/signing-key.gpg --trusted-key 830334D6A6010C41 --verify ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}}
       shell: bash
     - name: Set executable bit
       run: chmod +x ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}}
