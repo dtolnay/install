@@ -14,12 +14,13 @@ jobs:
     name: cargo expand
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - uses: dtolnay/install@master
         with:
           crate: cargo-expand
       - run: cargo expand --help
 ```
+
+<img src="https://user-images.githubusercontent.com/1940490/136493915-2c3c6a6b-620c-46e1-be4b-3c96856ccd12.png">
 
 ## Inputs
 
