@@ -1,0 +1,26 @@
+name: cargo install
+author: David Tolnay
+description: Fast `cargo install` action using a GitHub-based binary cache
+inputs:
+  crate:
+    description: Name of crate as published to crates.io
+    required: true
+  bin:
+    description: Name of binary; default = same as crate name
+    required: false
+runs:
+  using: composite
+  steps:
+    - name: Determine cargo bin directory
+      run: echo "::set-output name=dir::$(dirname $(which cargo))"
+      id: cargo
+    - name: Download ${{inputs.bin || inputs.crate}}
+      run: curl -o ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}} https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}
+    - name: Download ${{inputs.bin || inputs.crate}}.sig
+      run: curl -o ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}.sig
+    - name: Retrieve public key of signing key
+      run: gpg --output ${{runner.temp}}/signing-key.gpg --dearmor ${{github.action_path}}/signing-key.asc
+    - name: Verify gpg signature
+      run: gpg --no-default-keyring --keyring ${{runner.temp}}/signing-key.gpg --verify ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}}
+    - name: Set executable bit
+      run: chmod +x ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}}
