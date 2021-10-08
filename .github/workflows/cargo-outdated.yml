@@ -1,0 +1,29 @@
+name: cargo-outdated
+
+on:
+  push:
+    tags:
+      - cargo-outdated
+
+jobs:
+  build:
+    name: cargo-outdated
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo install --force cargo-outdated
+      - id: which
+        run: echo "::set-output name=which::$(which cargo-outdated)"
+      - run: echo "$PRIVATE_KEY" | gpg --import
+        env:
+          PRIVATE_KEY: ${{secrets.PRIVATE_KEY}}
+      - run: gpg --output cargo-outdated.sig --detach-sig ${{steps.which.outputs.which}}
+      - run: gpg --output signing-key.gpg --dearmor signing-key.asc
+      - run: gpg --no-default-keyring --keyring ./signing-key.gpg --verify cargo-outdated.sig ${{steps.which.outputs.which}}
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{steps.which.outputs.which}}
+            cargo-outdated.sig
+          fail_on_unmatched_files: true
