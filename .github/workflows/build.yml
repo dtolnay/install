@@ -9,6 +9,9 @@ on:
       bin:
         required: false
         type: string
+    secrets:
+      private_key:
+        required: true
 
 jobs:
   build:
@@ -22,7 +25,7 @@ jobs:
         run: echo "::set-output name=which::$(which ${{inputs.bin || inputs.crate}})"
       - run: echo "$PRIVATE_KEY" | gpg --import
         env:
-          PRIVATE_KEY: ${{secrets.PRIVATE_KEY}}
+          PRIVATE_KEY: ${{secrets.private_key}}
       - run: gpg --output ${{inputs.bin || inputs.crate}}.sig --detach-sig ${{steps.which.outputs.which}}
       - run: gpg --output signing-key.gpg --dearmor signing-key.asc
       - run: gpg --no-default-keyring --keyring ./signing-key.gpg --verify ${{inputs.bin || inputs.crate}}.sig ${{steps.which.outputs.which}}
