@@ -32,6 +32,7 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{inputs.crate}}
+          target_commitish: ${{github.ref}}
           files: |
             ${{steps.which.outputs.which}}
             ${{inputs.bin || inputs.crate}}.sig
