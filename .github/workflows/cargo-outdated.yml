@@ -2,7 +2,7 @@ name: cargo-outdated
 
 on:
   push:
-    tags:
+    branches:
       - cargo-outdated
 
 jobs:

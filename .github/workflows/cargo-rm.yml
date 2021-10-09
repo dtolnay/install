@@ -2,7 +2,7 @@ name: cargo-rm
 
 on:
   push:
-    tags:
+    branches:
       - cargo-rm
 
 jobs:

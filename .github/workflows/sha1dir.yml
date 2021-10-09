@@ -2,7 +2,7 @@ name: sha1dir
 
 on:
   push:
-    tags:
+    branches:
       - sha1dir
 
 jobs:

@@ -2,7 +2,7 @@ name: star-history
 
 on:
   push:
-    tags:
+    branches:
       - star-history
 
 jobs:

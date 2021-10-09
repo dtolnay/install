@@ -2,7 +2,7 @@ name: cargo-tally
 
 on:
   push:
-    tags:
+    branches:
       - cargo-tally
 
 jobs:

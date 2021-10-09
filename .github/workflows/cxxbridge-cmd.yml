@@ -2,7 +2,7 @@ name: cxxbridge-cmd
 
 on:
   push:
-    tags:
+    branches:
       - cxxbridge-cmd
 
 jobs:

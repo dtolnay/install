@@ -2,7 +2,7 @@ name: cargo-fuzz
 
 on:
   push:
-    tags:
+    branches:
       - cargo-fuzz
 
 jobs:
