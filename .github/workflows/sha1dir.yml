@@ -1,0 +1,14 @@
+name: sha1dir
+
+on:
+  push:
+    tags:
+      - sha1dir
+
+jobs:
+  build:
+    uses: dtolnay/install/.github/workflows/build.yml@master
+    with:
+      crate: sha1dir
+    secrets:
+      private_key: ${{secrets.private_key}}
