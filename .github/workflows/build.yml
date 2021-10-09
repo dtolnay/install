@@ -31,6 +31,7 @@ jobs:
       - run: gpg --no-default-keyring --keyring ./signing-key.gpg --verify ${{inputs.bin || inputs.crate}}.sig ${{steps.which.outputs.which}}
       - uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{inputs.crate}}
           files: |
             ${{steps.which.outputs.which}}
             ${{inputs.bin || inputs.crate}}.sig
