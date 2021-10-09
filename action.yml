@@ -1,20 +1,13 @@
 name: cargo install
 author: David Tolnay
 description: Fast `cargo install` action using a GitHub-based binary cache
-inputs:
-  crate:
-    description: Name of crate as published to crates.io
-    required: true
-  bin:
-    description: Name of binary; default = same as crate name
-    required: false
 runs:
   using: composite
   steps:
     - name: Check inputs
       run: |
-        echo "crate=${{inputs.crate}}" >> $GITHUB_OUTPUT
-        echo "bin=${{inputs.bin || inputs.crate}}" >> $GITHUB_OUTPUT
+        echo "crate=cxxbridge-cmd" >> $GITHUB_OUTPUT
+        echo "bin=cxxbridge" >> $GITHUB_OUTPUT
       shell: bash
       id: inputs
     - name: Determine cargo bin directory
