@@ -4,7 +4,8 @@ description: Fast `cargo install` action using a GitHub-based binary cache
 inputs:
   crate:
     description: Name of crate as published to crates.io
-    required: true
+    required: false
+    default: cargo-outdated
   bin:
     description: Name of binary; default = same as crate name
     required: false
