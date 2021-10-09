@@ -1,0 +1,14 @@
+name: cargo-fuzz
+
+on:
+  push:
+    tags:
+      - cargo-fuzz
+
+jobs:
+  build:
+    uses: dtolnay/install/.github/workflows/build.yml@master
+    with:
+      crate: cargo-fuzz
+    secrets:
+      private_key: ${{secrets.private_key}}
