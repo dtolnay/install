@@ -1,0 +1,14 @@
+name: cargo-llvm-lines
+
+on:
+  push:
+    tags:
+      - cargo-llvm-lines
+
+jobs:
+  build:
+    uses: dtolnay/install/.github/workflows/build.yml@master
+    with:
+      crate: cargo-llvm-lines
+    secrets:
+      private_key: ${{secrets.private_key}}
