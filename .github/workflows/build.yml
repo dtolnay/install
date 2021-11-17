@@ -24,7 +24,7 @@ jobs:
       - id: which
         run: echo "::set-output name=which::$(which ${{inputs.bin || inputs.crate}})"
       - id: version
-        run: echo "::set-output name=version::$(cargo install --list | grep -o '^{{inputs.crate}} \([^ :]\)\+')"
+        run: echo "::set-output name=version::$(cargo install --list | grep -o '^${{inputs.crate}} \([^ :]\)\+')"
       - run: echo "$PRIVATE_KEY" | gpg --import
         env:
           PRIVATE_KEY: ${{secrets.private_key}}
