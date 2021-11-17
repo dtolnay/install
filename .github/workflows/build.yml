@@ -23,6 +23,8 @@ jobs:
       - run: cargo install --force ${{inputs.crate}} --bin ${{inputs.bin || inputs.crate}}
       - id: which
         run: echo "::set-output name=which::$(which ${{inputs.bin || inputs.crate}})"
+      - id: version
+        run: echo "::set-output name=version::$(cargo install --list | grep -o '^{{inputs.crate}} \([^ :]\)\+')"
       - run: echo "$PRIVATE_KEY" | gpg --import
         env:
           PRIVATE_KEY: ${{secrets.private_key}}
@@ -37,3 +39,4 @@ jobs:
             ${{steps.which.outputs.which}}
             ${{inputs.bin || inputs.crate}}.sig
           fail_on_unmatched_files: true
+          body: ${{steps.version.outputs.version}}
