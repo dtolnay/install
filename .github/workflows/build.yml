@@ -18,7 +18,7 @@ jobs:
     name: ${{inputs.crate}}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo install --force ${{inputs.crate}} --bin ${{inputs.bin || inputs.crate}}
       - id: which
