@@ -10,5 +10,7 @@ jobs:
     uses: dtolnay/install/.github/workflows/build.yml@master
     with:
       crate: cargo-tally
+    permissions:
+      contents: write
     secrets:
       private_key: ${{secrets.private_key}}
