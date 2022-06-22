@@ -9,6 +9,12 @@ on:
       bin:
         required: false
         type: string
+      git:
+        required: false
+        type: string
+      branch:
+        required: false
+        type: string
     secrets:
       private_key:
         required: true
@@ -22,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
-      - run: cargo install --force ${{inputs.crate}} --bin ${{inputs.bin || inputs.crate}}
+      - run: cargo install --force ${{inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.git && format('--git={0}', inputs.git) || ''}} ${{inputs.branch && format('--branch={0}', inputs.branch) || ''}}
       - id: which
         run: echo "::set-output name=which::$(which ${{inputs.bin || inputs.crate}})"
       - id: version
