@@ -25,7 +25,7 @@ push=()
 for crate in "$@"; do
     (
         set -x
-        git tag -d "$crate" &>/dev/null || true
+        git tag --delete "$crate" &>/dev/null || true
         git checkout --quiet origin/"$crate"
         git rebase --quiet "$base"
     )
