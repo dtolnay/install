@@ -19,7 +19,7 @@ push=()
 
 (
     set -x
-    git fetch --quiet origin --tags
+    git fetch origin --quiet --tags --force
 )
 
 for crate in "$@"; do
