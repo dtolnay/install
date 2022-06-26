@@ -39,6 +39,7 @@ jobs:
       - run: gpg --output ${{inputs.bin || inputs.crate}}.sig --detach-sig ${{steps.which.outputs.which}}
       - run: gpg --output signing-key.gpg --dearmor signing-key.asc
       - run: gpg --no-default-keyring --keyring ./signing-key.gpg --verify ${{inputs.bin || inputs.crate}}.sig ${{steps.which.outputs.which}}
+      - run: git push origin :refs/tags/${{input.crate}} || true
       - uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{inputs.crate}}
