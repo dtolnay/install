@@ -16,10 +16,10 @@ runs:
       shell: bash
       id: cargo
     - name: Download ${{inputs.bin || inputs.crate}}
-      run: curl --output ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}} https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}} --location --silent --show-error --fail
+      run: curl --output ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}} https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}} --location --silent --show-error --fail --retry 5
       shell: bash
     - name: Download ${{inputs.bin || inputs.crate}}.sig
-      run: curl --output ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}.sig --location --silent --show-error --fail
+      run: curl --output ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}.sig --location --silent --show-error --fail --retry 5
       shell: bash
     - name: Retrieve public key of signing key
       run: gpg --output ${{runner.temp}}/signing-key.gpg --yes --dearmor ${{github.action_path}}/signing-key.asc
