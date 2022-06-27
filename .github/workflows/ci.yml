@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  schedule: [cron: "40 1 * * *"]
+
+jobs:
+  install:
+    name: Rust ${{matrix.rust}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          crate: cargo-outdated
+      - run: cargo outdated --version
