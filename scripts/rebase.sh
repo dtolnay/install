@@ -27,6 +27,7 @@ for crate in "$@"; do
         set -x
         git tag --delete "$crate" &>/dev/null || true
         git checkout --quiet origin/"$crate"
+        git commit --quiet --amend --no-edit
         git rebase --quiet "$base"
     )
     push+=("$(git rev-parse HEAD):refs/heads/$crate")
