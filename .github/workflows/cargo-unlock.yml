@@ -1,15 +1,15 @@
-name: cargo-rm
+name: cargo-unlock
 
 on:
   push:
     branches:
-      - cargo-rm
+      - cargo-unlock
 
 jobs:
   build:
     uses: dtolnay/install/.github/workflows/build.yml@master
     with:
-      crate: cargo-rm
+      crate: cargo-unlock
     permissions:
       contents: write
     secrets:
