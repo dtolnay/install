@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: dtolnay/install/.github/workflows/build.yml@master
+    uses: ./.github/workflows/build.yml
     with:
       crate: star-history
     permissions:
