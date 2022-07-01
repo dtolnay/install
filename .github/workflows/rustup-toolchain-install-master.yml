@@ -14,5 +14,4 @@ jobs:
       branch: nodefault
     permissions:
       contents: write
-    secrets:
-      private_key: ${{secrets.private_key}}
+    secrets: inherit
