@@ -30,9 +30,9 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo install --force ${{inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.git && format('--git={0}', inputs.git) || ''}} ${{inputs.branch && format('--branch={0}', inputs.branch) || ''}}
       - id: which
-        run: echo "::set-output name=which::$(which ${{inputs.bin || inputs.crate}})"
+        run: echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
       - id: version
-        run: echo "::set-output name=version::$(cargo install --list | grep -o '^${{inputs.crate}} \([^ :]\)\+')"
+        run: echo "version=$(cargo install --list | grep -o '^${{inputs.crate}} \([^ :]\)\+')" >> $GITHUB_OUTPUT
       - run: echo "$PRIVATE_KEY" | gpg --import
         env:
           PRIVATE_KEY: ${{secrets.private_key}}
