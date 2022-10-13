@@ -12,7 +12,7 @@ runs:
   using: composite
   steps:
     - name: Determine cargo bin directory
-      run: echo "::set-output name=dir::$(dirname $(which cargo))"
+      run: echo "dir=$(dirname $(which cargo))" >> $GITHUB_OUTPUT
       shell: bash
       id: cargo
     - name: Download ${{inputs.bin || inputs.crate}}
