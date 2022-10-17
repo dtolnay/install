@@ -1,0 +1,16 @@
+name: bindgen-cli
+
+on:
+  push:
+    branches:
+      - bindgen-cli
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      crate: bindgen-cli
+      bin: bindgen
+    permissions:
+      contents: write
+    secrets: inherit
