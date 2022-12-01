@@ -1,0 +1,16 @@
+name: buck2
+
+on:
+  push:
+    branches:
+      - buck2
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      crate: buck2
+      git: https://github.com/facebookincubator/buck2
+    permissions:
+      contents: write
+    secrets: inherit
