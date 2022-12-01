@@ -29,16 +29,6 @@ jobs:
 | `crate` | ✓        | Name of crate as published to crates.io      |
 | `bin`   |          | Name of binary; default = same as crate name |
 
-## Security considerations
-
-Check the `.github/workflows` directory of this repo for the GitHub Actions
-logic which compiles, signs, and publishes each binary.
-
-This Action downloads both the binary executable and its signature. The
-signature is verified using gpg and the public key available in
-`signing-key.asc`. The corresponding private key is provided to this repo's
-build jobs as a GitHub secret.
-
 ## License
 
 The scripts and documentation in this project are released under the [MIT
