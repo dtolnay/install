@@ -10,7 +10,8 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       crate: buck2
-      git: https://github.com/facebookincubator/buck2
+      git: facebookincubator/buck2
+      path: cli
     permissions:
       contents: write
     secrets: inherit

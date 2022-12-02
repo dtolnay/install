@@ -10,8 +10,8 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       crate: rustup-toolchain-install-master
-      git: https://github.com/dtolnay-contrib/rustup-toolchain-install-master
-      branch: nodefault
+      git: dtolnay-contrib/rustup-toolchain-install-master
+      ref: nodefault
     permissions:
       contents: write
     secrets: inherit
