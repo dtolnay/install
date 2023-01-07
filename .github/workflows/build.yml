@@ -38,7 +38,6 @@ jobs:
           path: ${{inputs.crate}}
         if: inputs.git
       - uses: dtolnay/rust-toolchain@stable
-      - uses: arduino/setup-protoc@v1
       - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}}
         working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: which
