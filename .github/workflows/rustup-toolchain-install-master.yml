@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build.yml
+    uses: ./build.yml
     with:
       crate: rustup-toolchain-install-master
       git: dtolnay-contrib/rustup-toolchain-install-master

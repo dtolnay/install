@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build.yml
+    uses: ./build.yml
     with:
       crate: cxxbridge-cmd
       bin: cxxbridge

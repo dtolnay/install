@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/build.yml
+    uses: ./build.yml
     with:
       crate: cargo-fuzz
     permissions:
