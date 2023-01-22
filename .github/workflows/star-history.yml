@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: ./build.yml
+    uses: ./.github/workflows/build.yml
     with:
       crate: star-history
     permissions:
