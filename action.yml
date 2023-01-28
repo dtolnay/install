@@ -2,12 +2,6 @@ name: cargo install
 author: David Tolnay
 description: Fast `cargo install` action using a GitHub-based binary cache
 inputs:
-  crate:
-    description: Name of crate as published to crates.io
-    required: true
-  bin:
-    description: Name of binary; default = same as crate name
-    required: false
   github_token:
     description: Access token for connecting to GitHub API for artifact attestation; normally the ephemeral {{github.token}} when used in a GitHub workflow, or a personal access token {{secrets.GH_TOKEN}} in Gitea's act runner
     default: ${{github.token}}
@@ -16,8 +10,8 @@ runs:
   steps:
     - name: Check inputs
       run: |
-        echo "crate=${{inputs.crate}}" >> $GITHUB_OUTPUT
-        echo "bin=${{inputs.bin || inputs.crate}}" >> $GITHUB_OUTPUT
+        echo "crate=cargo-web" >> $GITHUB_OUTPUT
+        echo "bin=cargo-web" >> $GITHUB_OUTPUT
       shell: bash
       id: inputs
     - name: Determine cargo bin directory
