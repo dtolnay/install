@@ -3,6 +3,11 @@
 This GitHub Action installs a Rust crate using precompiled signed binaries built
 on GitHub and hosted as GitHub release artifacts.
 
+Please note that this action is meant for my own personal use and I would prefer not to add crates to this repo that I don't use myself.
+
+Check the [releases](https://github.com/dtolnay/install/releases) for a list of all crates that are usable with this action.
+If you need other crates, [fork this repository](https://github.com/dtolnay/install/issues/1#issuecomment-1170097812) and add your own crates.
+
 ## Example workflow
 
 ```yaml
