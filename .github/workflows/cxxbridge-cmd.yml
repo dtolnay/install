@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - cxxbridge-cmd
+  workflow_dispatch:
 
 jobs:
   build:

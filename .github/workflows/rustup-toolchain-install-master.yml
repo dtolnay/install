@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - rustup-toolchain-install-master
+  workflow_dispatch:
 
 jobs:
   build:

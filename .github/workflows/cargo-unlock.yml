@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - cargo-unlock
+  workflow_dispatch:
 
 jobs:
   build:

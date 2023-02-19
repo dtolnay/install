@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - buck2
+  workflow_dispatch:
 
 jobs:
   build:

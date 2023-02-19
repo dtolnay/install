@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - faketty
+  workflow_dispatch:
 
 jobs:
   build:

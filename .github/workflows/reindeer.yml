@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - reindeer
+  workflow_dispatch:
 
 jobs:
   build:

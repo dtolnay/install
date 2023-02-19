@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - sha1dir
+  workflow_dispatch:
 
 jobs:
   build:

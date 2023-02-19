@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - star-history
+  workflow_dispatch:
 
 jobs:
   build:
