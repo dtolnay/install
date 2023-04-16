@@ -12,7 +12,7 @@ jobs:
     with:
       crate: buck2
       git: facebookincubator/buck2
-      path: cli
+      path: app/buck2
     permissions:
       contents: write
     secrets: inherit
