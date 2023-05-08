@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       crate: buck2
-      git: facebookincubator/buck2
+      git: facebook/buck2
       path: app/buck2
     permissions:
       contents: write
