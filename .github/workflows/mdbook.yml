@@ -1,0 +1,16 @@
+name: mdbook
+
+on:
+  push:
+    branches:
+      - mdbook
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      crate: mdbook
+    permissions:
+      contents: write
+    secrets: inherit
