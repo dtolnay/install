@@ -1,0 +1,16 @@
+name: cargo-edit
+
+on:
+  push:
+    branches:
+      - cargo-edit
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      crate: cargo-edit
+    permissions:
+      contents: write
+    secrets: inherit
