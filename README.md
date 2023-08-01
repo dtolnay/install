@@ -22,7 +22,7 @@ jobs:
     name: cargo udeps
     runs-on: ubuntu-latest
     steps:
-      - uses: stackabletech/cargo-install-action@master
+      - uses: stackabletech/cargo-install-action@main
         with:
           crate: cargo-udeps
       - run: cargo udeps --help
