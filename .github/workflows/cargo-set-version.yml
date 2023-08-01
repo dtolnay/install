@@ -1,9 +1,9 @@
-name: cargo-edit
+name: cargo-set-version
 
 on:
   push:
     branches:
-      - cargo-edit
+      - cargo-set-version
   workflow_dispatch:
 
 jobs:
@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       crate: cargo-edit
+      bin: cargo-set-version
     permissions:
       contents: write
     secrets: inherit
