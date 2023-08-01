@@ -1,16 +1,16 @@
-name: dircnt
+name: cargo-udeps
 
 on:
   push:
     branches:
-      - dircnt
+      - cargo-udeps
   workflow_dispatch:
 
 jobs:
   build:
     uses: ./.github/workflows/build.yml
     with:
-      crate: dircnt
+      crate: cargo-udeps
     permissions:
       contents: write
     secrets: inherit

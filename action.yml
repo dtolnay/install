@@ -1,5 +1,5 @@
 name: cargo install
-author: David Tolnay
+author: Stackable
 description: Fast `cargo install` action using a GitHub-based binary cache
 inputs:
   crate:
