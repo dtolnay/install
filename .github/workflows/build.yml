@@ -30,8 +30,8 @@ jobs:
       contents: write
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           repository: ${{inputs.git}}
           ref: ${{inputs.ref}}
