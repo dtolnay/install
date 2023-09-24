@@ -1,0 +1,16 @@
+name: cargo-docs-rs
+
+on:
+  push:
+    branches:
+      - cargo-docs-rs
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      crate: cargo-docs-rs
+    permissions:
+      contents: write
+    secrets: inherit
