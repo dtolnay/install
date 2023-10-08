@@ -18,6 +18,10 @@ on:
       path:
         required: false
         type: string
+      toolchain:
+        required: false
+        type: string
+        default: stable
     secrets:
       private_key:
         required: true
@@ -37,7 +41,9 @@ jobs:
           ref: ${{inputs.ref}}
           path: ${{inputs.crate}}
         if: inputs.git
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{inputs.toolchain}}
       - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}}
         working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: which
