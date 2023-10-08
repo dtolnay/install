@@ -22,6 +22,10 @@ on:
         required: false
         type: string
         default: stable
+      locked:
+        required: false
+        type: boolean
+        default: false
     secrets:
       private_key:
         required: true
@@ -44,7 +48,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{inputs.toolchain}}
-      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}}
+      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.locked && '--locked' || ''}}
         working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: which
         run: echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT

@@ -12,6 +12,7 @@ jobs:
     with:
       crate: taplo-cli
       bin: taplo
+      locked: true
     permissions:
       contents: write
     secrets: inherit
