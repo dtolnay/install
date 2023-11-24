@@ -1,17 +1,16 @@
-name: afl
+name: cargo-afl
 
 on:
   push:
     branches:
-      - afl
+      - cargo-afl
   workflow_dispatch:
 
 jobs:
   build:
     uses: ./.github/workflows/build.yml
     with:
-      crate: afl
-      bin: cargo-afl
+      crate: cargo-afl
     permissions:
       contents: write
     secrets: inherit
