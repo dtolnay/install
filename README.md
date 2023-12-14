@@ -5,7 +5,7 @@ NOTE: This is a fork of https://github.com/dtolnay/install to include packages n
 This GitHub Action installs a Rust crate using precompiled signed binaries built
 on GitHub and hosted as GitHub release artifacts.
 
-Please note that this action is meant for use by Stackable only and we do not plan on adding crates that we do not use ourselves.
+Please note that this action is meant for use by Stackable only, and we do not plan on adding crates that we do not use ourselves.
 
 Check the [releases](https://github.com/stackabletech/cargo-install-action/releases) for a list of all crates that are usable with this action.
 
@@ -77,6 +77,10 @@ For example:
 ```bash
 scripts/rebase.sh cargo-udeps
 ```
+
+#### Releasing a new version of a tool
+
+To release a new version go to the [Actions tab](https://github.com/stackabletech/cargo-install-action/actions) and select the tool to build and click on `Run workflow`.  
 
 ## License
 
