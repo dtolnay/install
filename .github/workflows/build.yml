@@ -18,6 +18,14 @@ on:
       path:
         required: false
         type: string
+      toolchain:
+        required: false
+        type: string
+        default: stable
+      locked:
+        required: false
+        type: boolean
+        default: false
     secrets:
       private_key:
         required: true
@@ -30,15 +38,17 @@ jobs:
       contents: write
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           repository: ${{inputs.git}}
           ref: ${{inputs.ref}}
           path: ${{inputs.crate}}
         if: inputs.git
-      - uses: dtolnay/rust-toolchain@stable
-      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}}
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{inputs.toolchain}}
+      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.locked && '--locked' || ''}}
         working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: which
         run: echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
