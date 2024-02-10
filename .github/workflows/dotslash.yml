@@ -1,0 +1,16 @@
+name: dotslash
+
+on:
+  push:
+    branches:
+      - dotslash
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      crate: dotslash
+    permissions:
+      contents: write
+    secrets: inherit
