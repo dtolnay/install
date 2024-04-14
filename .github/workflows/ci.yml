@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   install:
-    name: Rust ${{matrix.rust}}
+    name: Install
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
