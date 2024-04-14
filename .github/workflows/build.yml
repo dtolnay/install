@@ -63,7 +63,7 @@ jobs:
       - run: git tag -d ${{inputs.crate}} || true
       - run: git tag ${{inputs.crate}}
       - run: git push origin tag ${{inputs.crate}} --force
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{inputs.crate}}
           target_commitish: ${{github.ref}}
