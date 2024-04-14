@@ -11,22 +11,28 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Check inputs
+      run: |
+        echo "crate=${{inputs.crate}}" >> $GITHUB_OUTPUT
+        echo "bin=${{inputs.bin || inputs.crate}}" >> $GITHUB_OUTPUT
+      shell: bash
+      id: inputs
     - name: Determine cargo bin directory
       run: echo "dir=$(dirname $(which cargo))" >> $GITHUB_OUTPUT
       shell: bash
       id: cargo
-    - name: Download ${{inputs.bin || inputs.crate}}
-      run: curl --output ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}} https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}} --location --silent --show-error --fail --retry 5
+    - name: Download ${{steps.inputs.outputs.bin}}
+      run: curl --output ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}} https://github.com/dtolnay/install/releases/download/${{steps.inputs.outputs.crate}}/${{steps.inputs.outputs.bin}} --location --silent --show-error --fail --retry 5
       shell: bash
-    - name: Download ${{inputs.bin || inputs.crate}}.sig
-      run: curl --output ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig https://github.com/dtolnay/install/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}.sig --location --silent --show-error --fail --retry 5
+    - name: Download ${{steps.inputs.outputs.bin}}.sig
+      run: curl --output ${{runner.temp}}/${{steps.inputs.outputs.bin}}.sig https://github.com/dtolnay/install/releases/download/${{steps.inputs.outputs.crate}}/${{steps.inputs.outputs.bin}}.sig --location --silent --show-error --fail --retry 5
       shell: bash
     - name: Retrieve public key of signing key
       run: gpg --output ${{runner.temp}}/signing-key.gpg --yes --dearmor ${{github.action_path}}/signing-key.asc
       shell: bash
     - name: Verify gpg signature
-      run: gpg --no-default-keyring --keyring ${{runner.temp}}/signing-key.gpg --trusted-key 830334D6A6010C41 --verify ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}}
+      run: gpg --no-default-keyring --keyring ${{runner.temp}}/signing-key.gpg --trusted-key 830334D6A6010C41 --verify ${{runner.temp}}/${{steps.inputs.outputs.bin}}.sig ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
       shell: bash
     - name: Set executable bit
-      run: chmod +x ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}}
+      run: chmod +x ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
       shell: bash
