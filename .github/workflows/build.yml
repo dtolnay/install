@@ -52,9 +52,9 @@ jobs:
         with:
           toolchain: ${{inputs.toolchain}}
       - id: which
-        run: |
-          echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
-          echo "arch=$(arch)" >> $GITHUB_OUTPUT
+        run: echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
+      - id: arch
+        run: echo "arch=$(arch)" >> $GITHUB_OUTPUT
       - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.locked && '--locked' || ''}}
         working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: version
@@ -62,18 +62,18 @@ jobs:
       - run: echo "$PRIVATE_KEY" | gpg --import
         env:
           PRIVATE_KEY: ${{secrets.private_key}}
-      - run: gpg --output ${{inputs.bin || inputs.crate}}-${{steps.which.outputs.arch}}.sig --detach-sig ${{steps.which.outputs.which}}
-      - run: gpg --output signing-key-${{steps.which.outputs.arch}}.gpg --dearmor signing-key.asc
-      - run: gpg --no-default-keyring --keyring ./signing-key-${{steps.which.outputs.arch}}.gpg --verify ${{inputs.bin || inputs.crate}}-${{steps.which.outputs.arch}}.sig ${{steps.which.outputs.which}}
-      - run: git tag -d ${{inputs.crate}}-${{steps.which.outputs.arch}} || true
-      - run: git tag ${{inputs.crate}}-${{steps.which.outputs.arch}}
-      - run: git push origin tag ${{inputs.crate}}-${{steps.which.outputs.arch}} --force
+      - run: gpg --output ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig --detach-sig ${{steps.which.outputs.which}}
+      - run: gpg --output signing-key-${{steps.arch.outputs.arch}}.gpg --dearmor signing-key.asc
+      - run: gpg --no-default-keyring --keyring ./signing-key-${{steps.arch.outputs.arch}}.gpg --verify ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig ${{steps.which.outputs.which}}
+      - run: git tag -d ${{inputs.crate}}-${{steps.arch.outputs.arch}} || true
+      - run: git tag ${{inputs.crate}}-${{steps.arch.outputs.arch}}
+      - run: git push origin tag ${{inputs.crate}}-${{steps.arch.outputs.arch}} --force
       - uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{inputs.crate}}-${{steps.which.outputs.arch}}
+          tag_name: ${{inputs.crate}}-${{steps.arch.outputs.arch}}
           target_commitish: ${{github.ref}}
           files: |
             ${{steps.which.outputs.which}}
-            ${{inputs.bin || inputs.crate}}-${{steps.which.outputs.arch}}.sig
+            ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig
           fail_on_unmatched_files: true
-          body: ${{steps.version.outputs.version}}-${{steps.which.outputs.arch}}
+          body: ${{steps.version.outputs.version}}-${{steps.arch.outputs.arch}}
