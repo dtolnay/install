@@ -51,12 +51,12 @@ jobs:
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{inputs.toolchain}}
-      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.locked && '--locked' || ''}}
-        working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: which
         run: |
           echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
           echo "arch=$(arch)" >> $GITHUB_OUTPUT
+      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}}-${{steps.which.outputs.arch}} ${{inputs.locked && '--locked' || ''}}
+        working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: version
         run: echo "version=$(cargo install --list | grep -o '^${{inputs.crate}} \([^ :]\)\+')" >> $GITHUB_OUTPUT
       - run: echo "$PRIVATE_KEY" | gpg --import
