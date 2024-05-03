@@ -33,7 +33,10 @@ on:
 jobs:
   build:
     name: ${{inputs.crate}}
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runner: ["ubuntu-latest", "buildjet-2vcpu-ubuntu-2204-arm"]
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: write
     timeout-minutes: 45
