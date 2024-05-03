@@ -55,7 +55,7 @@ jobs:
         run: |
           echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
           echo "arch=$(arch)" >> $GITHUB_OUTPUT
-      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}}-${{steps.which.outputs.arch}} ${{inputs.locked && '--locked' || ''}}
+      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.locked && '--locked' || ''}}
         working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: version
         run: echo "version=$(cargo install --list | grep -o '^${{inputs.crate}} \([^ :]\)\+')" >> $GITHUB_OUTPUT
@@ -73,7 +73,7 @@ jobs:
           tag_name: ${{inputs.crate}}-${{steps.which.outputs.arch}}
           target_commitish: ${{github.ref}}
           files: |
-            ${{steps.which.outputs.which}}-${{steps.which.outputs.arch}}
+            ${{steps.which.outputs.which}}
             ${{inputs.bin || inputs.crate}}-${{steps.which.outputs.arch}}.sig
           fail_on_unmatched_files: true
           body: ${{steps.version.outputs.version}}-${{steps.which.outputs.arch}}
