@@ -42,6 +42,7 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           repository: ${{inputs.git}}
           ref: ${{inputs.ref}}
@@ -64,11 +65,9 @@ jobs:
         env:
           PRIVATE_KEY: ${{secrets.private_key}}
       - run: gpg --output ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig --detach-sig ${{steps.which.outputs.which}}-${{steps.arch.outputs.arch}}
-      - run: |
-            cat signing-key.asc
-            gpg --output signing-key-${{steps.arch.outputs.arch}}.gpg --dearmor signing-key.asc
+      - run: gpg --output signing-key-${{steps.arch.outputs.arch}}.gpg --dearmor signing-key.asc
       - run: gpg --no-default-keyring --keyring ./signing-key-${{steps.arch.outputs.arch}}.gpg --verify ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig ${{steps.which.outputs.which}}-${{steps.arch.outputs.arch}}
-      - run: git tag -d ${{inputs.crate}}|| true
+      - run: git tag -d ${{inputs.crate}} || true
       - run: git tag ${{inputs.crate}}
       - run: git push origin tag ${{inputs.crate}} --force
       - uses: softprops/action-gh-release@v1
