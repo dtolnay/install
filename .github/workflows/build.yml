@@ -78,4 +78,4 @@ jobs:
             ${{steps.which.outputs.which}}-${{steps.arch.outputs.arch}}
             ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig
           fail_on_unmatched_files: true
-          body: ${{steps.version.outputs.version}}-${{steps.arch.outputs.arch}}
+          body: ${{steps.version.outputs.version}}
