@@ -11,15 +11,19 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Determine architecture
+      id: arch
+      shell: bash
+      run: echo "arch=$(arch)" >> $GITHUB_OUTPUT
     - name: Determine cargo bin directory
       run: echo "dir=$(dirname $(which cargo))" >> $GITHUB_OUTPUT
       shell: bash
       id: cargo
-    - name: Download ${{inputs.bin || inputs.crate}}
-      run: curl --output ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}} https://github.com/stackabletech/cargo-install-action/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}} --location --silent --show-error --fail --retry 5
+    - name: Download ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}
+      run: curl --output ${{steps.cargo.outputs.dir}}/${{inputs.bin || inputs.crate}} https://github.com/stackabletech/cargo-install-action/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}} --location --silent --show-error --fail --retry 5
       shell: bash
-    - name: Download ${{inputs.bin || inputs.crate}}.sig
-      run: curl --output ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig https://github.com/stackabletech/cargo-install-action/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}.sig --location --silent --show-error --fail --retry 5
+    - name: Download ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig
+      run: curl --output ${{runner.temp}}/${{inputs.bin || inputs.crate}}.sig https://github.com/stackabletech/cargo-install-action/releases/download/${{inputs.crate}}/${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig --location --silent --show-error --fail --retry 5
       shell: bash
     - name: Retrieve public key of signing key
       run: gpg --output ${{runner.temp}}/signing-key.gpg --yes --dearmor ${{github.action_path}}/signing-key.asc
