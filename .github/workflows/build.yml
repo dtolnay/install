@@ -53,7 +53,7 @@ jobs:
           toolchain: ${{inputs.toolchain}}
       - id: arch
         run: echo "arch=$(arch)" >> $GITHUB_OUTPUT
-      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.locked && '--locked' || ''}}
+      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}} ${{inputs.locked && '--locked' || ''}}
         working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: which
         run: echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
@@ -70,10 +70,10 @@ jobs:
       - run: git push origin tag ${{inputs.crate}}-${{steps.arch.outputs.arch}} --force
       - uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{inputs.crate}}-${{steps.arch.outputs.arch}}
+          tag_name: ${{inputs.crate}}
           target_commitish: ${{github.ref}}
           files: |
-            ${{steps.which.outputs.which}}
+            ${{steps.which.outputs.which}}-${{steps.arch.outputs.arch}}
             ${{inputs.bin || inputs.crate}}-${{steps.arch.outputs.arch}}.sig
           fail_on_unmatched_files: true
           body: ${{steps.version.outputs.version}}-${{steps.arch.outputs.arch}}
