@@ -32,7 +32,7 @@ on:
 
 jobs:
   build:
-    name: ${{inputs.crate}}
+    name: ${{inputs.crate}} - ${{matrix.runner}}
     strategy:
       matrix:
         runner: ["ubuntu-latest", "buildjet-2vcpu-ubuntu-2204-arm"]
