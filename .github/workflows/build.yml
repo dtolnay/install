@@ -6,6 +6,9 @@ on:
       crate:
         required: true
         type: string
+      version:
+        required: false
+        type: string
       bin:
         required: false
         type: string
@@ -48,7 +51,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{inputs.toolchain}}
-      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.locked && '--locked' || ''}}
+      - run: cargo install --force ${{inputs.git && format('--path={0}', inputs.path || '.') || inputs.crate}} ${{inputs.version && format('--version={0}', inputs.version) || ''}} --bin ${{inputs.bin || inputs.crate}} ${{inputs.locked && '--locked' || ''}}
         working-directory: ${{inputs.git && inputs.crate || '.'}}
       - id: which
         run: echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
