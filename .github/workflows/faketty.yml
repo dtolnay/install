@@ -12,5 +12,7 @@ jobs:
     with:
       crate: faketty
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit

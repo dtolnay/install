@@ -12,5 +12,7 @@ jobs:
     with:
       crate: mdbook
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit

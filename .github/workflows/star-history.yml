@@ -12,5 +12,7 @@ jobs:
     with:
       crate: star-history
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit

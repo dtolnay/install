@@ -13,5 +13,7 @@ jobs:
       crate: bindgen-cli
       bin: bindgen
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit
