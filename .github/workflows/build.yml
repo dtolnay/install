@@ -29,9 +29,6 @@ on:
         required: false
         type: boolean
         default: false
-    secrets:
-      private_key:
-        required: true
 
 jobs:
   build:
@@ -59,12 +56,6 @@ jobs:
         run: echo "which=$(which ${{inputs.bin || inputs.crate}})" >> $GITHUB_OUTPUT
       - id: version
         run: echo "version=$(cargo install --list | grep -o '^${{inputs.crate}} \([^ :]\)\+')" >> $GITHUB_OUTPUT
-      - run: echo "$PRIVATE_KEY" | gpg --import
-        env:
-          PRIVATE_KEY: ${{secrets.private_key}}
-      - run: gpg --output ${{inputs.bin || inputs.crate}}.sig --detach-sig ${{steps.which.outputs.which}}
-      - run: gpg --output signing-key.gpg --dearmor signing-key.asc
-      - run: gpg --no-default-keyring --keyring ./signing-key.gpg --verify ${{inputs.bin || inputs.crate}}.sig ${{steps.which.outputs.which}}
       - uses: actions/attest-build-provenance@v2
         with:
           subject-path: ${{steps.which.outputs.which}}
@@ -75,8 +66,6 @@ jobs:
         with:
           tag_name: ${{inputs.crate}}
           target_commitish: ${{github.ref}}
-          files: |
-            ${{steps.which.outputs.which}}
-            ${{inputs.bin || inputs.crate}}.sig
+          files: ${{steps.which.outputs.which}}
           fail_on_unmatched_files: true
           body: ${{steps.version.outputs.version}}
