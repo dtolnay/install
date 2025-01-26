@@ -13,5 +13,7 @@ jobs:
       crate: honggfuzz
       bin: cargo-hfuzz
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit

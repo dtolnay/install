@@ -12,5 +12,7 @@ jobs:
     with:
       crate: cargo-fuzz
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit

@@ -13,5 +13,7 @@ jobs:
       crate: cxxbridge-cmd
       bin: cxxbridge
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit

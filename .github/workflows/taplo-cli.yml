@@ -14,5 +14,7 @@ jobs:
       bin: taplo
       locked: true
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit

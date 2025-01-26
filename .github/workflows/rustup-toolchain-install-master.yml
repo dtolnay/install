@@ -14,5 +14,7 @@ jobs:
       git: dtolnay-contrib/rustup-toolchain-install-master
       ref: nodefault
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit

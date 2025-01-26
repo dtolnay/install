@@ -12,5 +12,7 @@ jobs:
     with:
       crate: cargo-unlock
     permissions:
+      id-token: write
       contents: write
+      attestations: write
     secrets: inherit
