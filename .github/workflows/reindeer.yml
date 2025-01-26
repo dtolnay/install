@@ -16,4 +16,3 @@ jobs:
       id-token: write
       contents: write
       attestations: write
-    secrets: inherit
