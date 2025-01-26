@@ -33,6 +33,11 @@ runs:
     - name: Verify gpg signature
       run: gpg --no-default-keyring --keyring ${{runner.temp}}/signing-key.gpg --trusted-key 830334D6A6010C41 --verify ${{runner.temp}}/${{steps.inputs.outputs.bin}}.sig ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
       shell: bash
+    - name: Verify artifact attestation
+      run: gh attestation verify --owner dtolnay ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
+      env:
+        GH_TOKEN: ${{github.token}}
+      shell: bash
     - name: Set executable bit
       run: chmod +x ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
       shell: bash
