@@ -10,24 +10,16 @@ name: test suite
 on: [push, pull_request]
 
 jobs:
-  expand:
-    name: cargo expand
+  doc:
+    name: Documentation
     runs-on: ubuntu-latest
     steps:
-      - uses: dtolnay/install@master
-        with:
-          crate: cargo-expand
-      - run: cargo expand --help
+      - uses: actions/checkout@v4
+      - uses: dtolnay/install@cargo-docs-rs
+      - run: cargo docs-rs
 ```
 
-<img src="https://user-images.githubusercontent.com/1940490/136493915-2c3c6a6b-620c-46e1-be4b-3c96856ccd12.png">
-
-## Inputs
-
-| Name    | Required | Description                                  |
-| ------- | :------: | -------------------------------------------- |
-| `crate` | ✓        | Name of crate as published to crates.io      |
-| `bin`   |          | Name of binary; default = same as crate name |
+<img src="https://github.com/user-attachments/assets/4bfecd07-dadc-4ce3-be98-d98461251da5">
 
 ## Security
 
