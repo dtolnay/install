@@ -8,6 +8,9 @@ inputs:
   bin:
     description: Name of binary; default = same as crate name
     required: false
+  github_token:
+    description: Access token for connecting to GitHub API for artifact attestation; normally the ephemeral {{github.token}} when used in a GitHub workflow, or a personal access token {{secrets.GH_TOKEN}} in Gitea's act runner
+    default: ${{github.token}}
 runs:
   using: composite
   steps:
@@ -27,7 +30,7 @@ runs:
     - name: Verify artifact attestation
       run: gh attestation verify --owner dtolnay ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
       env:
-        GH_TOKEN: ${{github.token}}
+        GH_TOKEN: ${{inputs.github_token}}
       shell: bash
     - name: Set executable bit
       run: chmod +x ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
