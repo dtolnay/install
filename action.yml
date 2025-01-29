@@ -27,7 +27,7 @@ runs:
     - name: Verify artifact attestation
       run: gh attestation verify --owner dtolnay ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
       env:
-        GH_TOKEN: ${{github.token}}
+        GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       shell: bash
     - name: Set executable bit
       run: chmod +x ${{steps.cargo.outputs.dir}}/${{steps.inputs.outputs.bin}}
