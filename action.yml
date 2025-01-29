@@ -9,7 +9,7 @@ inputs:
     description: Name of binary; default = same as crate name
     required: false
   github_token:
-    description: Access token for connecting to GitHub API for artifact attestation; normally the ephemeral {{github.token}} or {{secrets.GITHUB_TOKEN}} when used in a GitHub workflow, or a personal access token when run by Act Runner
+    description: Access token for connecting to GitHub API for artifact attestation; normally the ephemeral {{github.token}} when used in a GitHub workflow, or a personal access token {{secrets.GH_TOKEN}} in Gitea's act runner
     default: ${{github.token}}
 runs:
   using: composite
