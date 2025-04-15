@@ -13,6 +13,6 @@ jobs:
       crate: reindeer
       git: facebookincubator/reindeer
     permissions:
-      id-token: write
-      contents: write
       attestations: write
+      contents: write
+      id-token: write
