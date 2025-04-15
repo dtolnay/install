@@ -12,6 +12,6 @@ jobs:
     with:
       crate: cargo-docs-rs
     permissions:
-      id-token: write
-      contents: write
       attestations: write
+      contents: write
+      id-token: write
