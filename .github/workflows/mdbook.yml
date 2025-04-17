@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       crate: mdbook
+      version: 0.4.47  # https://github.com/rust-lang/mdBook/issues/2634
     permissions:
       attestations: write
       contents: write
