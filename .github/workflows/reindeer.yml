@@ -12,6 +12,7 @@ jobs:
     with:
       crate: reindeer
       git: facebookincubator/reindeer
+      locked: true
     permissions:
       attestations: write
       contents: write
